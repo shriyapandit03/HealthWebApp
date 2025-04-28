@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empowering Your Wellness: A Smarter Way to Care</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        section {
+            margin: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        input[type="number"], input[type="text"], input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .results {
+            background-color: #eaf0e4;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        .circle, .triangle {
+            display: inline-block;
+            margin: 10px;
+        }
+        .circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #4CAF50;
+        }
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 40px solid #4CAF50;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        Empowering Your Wellness: A Smarter Way to Care
+    </header>
+
+    <!-- BMI Calculator Section -->
+    <section>
+        <h3>BMI Calculator</h3>
+        <div class="form-group">
+            <label for="weightInput">Weight (kg):</label>
+            <input type="number" id="weightInput" placeholder="Enter your weight">
+        </div>
+        <div class="form-group">
+            <label for="heightInput">Height (cm):</label>
+            <input type="number" id="heightInput" placeholder="Enter your height">
+        </div>
+        <input type="button" value="Calculate BMI" class="btn" onclick="calculateBMI()">
+        <div id="bmiResult" class="results"></div>
+    </section>
+
+    <!-- Temperature & Pulse Measurement Section -->
+    <section>
+        <h3>Temperature & Pulse Measurement</h3>
+        <div class="form-group">
+            <label for="temperatureInput">Temperature (°C):</label>
+            <input type="number" id="temperatureInput" placeholder="Enter your body temperature">
+        </div>
+        <div class="form-group">
+            <label for="pulseInput">Pulse Rate (bpm):</label>
+            <input type="number" id="pulseInput" placeholder="Enter your pulse rate">
+        </div>
+        <input type="button" value="Check Health Stats" class="btn" onclick="checkHealthStats()">
+        <div id="healthStatsResult" class="results"></div>
+    </section>
+
+    <!-- Doctor Search Section -->
+    <section>
+        <h3>Doctor Search</h3>
+        <div class="form-group">
+            <label for="doctorSearchInput">Enter Doctor Specialty:</label>
+            <input type="text" id="doctorSearchInput" placeholder="e.g. Cardiologist, Dentist">
+        </div>
+        <input type="button" value="Search Doctor" class="btn" onclick="searchDoctor()">
+        <div id="doctorResult" class="results"></div>
+    </section>
+
+    <!-- Doctor Consultation Fees & Advice Section -->
+    <section>
+        <h3>Doctor Consultation Fees & Advice</h3>
+        <div class="form-group">
+            <label for="doctorAdviceInput">Enter Doctor's Name:</label>
+            <input type="text" id="doctorAdviceInput" placeholder="Enter doctor's name">
+        </div>
+        <input type="button" value="Get Fees & Advice" class="btn" onclick="doctorAdvice()">
+        <div id="doctorAdviceResult" class="results"></div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section>
+        <h3>FAQ</h3>
+        <div class="form-group">
+            <label for="faqSearch">Search for common questions:</label>
+            <input type="text" id="faqSearch" placeholder="e.g. 'How to book an appointment?'">
+        </div>
+        <input type="button" value="Search FAQ" class="btn" onclick="searchFAQ()">
+        <div id="faqResult" class="results"></div>
+    </section>
+
+    <!-- Footer with Contact Information -->
+    <footer>
+        <div class="contact-info">
+            <p>For assistance, contact us:</p>
+            <p>Email: <a href="mailto:contact@healthcare.com">contact@healthcare.com</a></p>
+            <p>Phone: <a href="tel:+1234567890">+123-456-7890</a></p>
+        </div>
+        <div class="circle"></div>
+        <div class="triangle"></div>
+    </footer>
+
+    <script>
+        // BMI Calculator
+        function calculateBMI() {
+            let weight = parseFloat(document.getElementById('weightInput').value);
+            let height = parseFloat(document.getElementById('heightInput').value) / 100; // Convert cm to meters
+            if (weight && height) {
+                let bmi = weight / (height * height);
+                let result = `Your BMI is ${bmi.toFixed(2)}. `;
+                if (bmi < 18.5) result += "You are underweight.";
+                else if (bmi < 24.9) result += "You have a normal weight.";
+                else if (bmi < 29.9) result += "You are overweight.";
+                else result += "You are obese.";
+                document.getElementById('bmiResult').innerText = result;
+            } else {
+                document.getElementById('bmiResult').innerText = "Please enter valid weight and height.";
+            }
+        }
+
+        // Temperature & Pulse Measurement
+        function checkHealthStats() {
+            let temperature = parseFloat(document.getElementById('temperatureInput').value);
+            let pulse = parseInt(document.getElementById('pulseInput').value);
+            if (temperature && pulse) {
+                let result = `Your temperature is ${temperature}°C and pulse is ${pulse} bpm.`;
+                if (temperature < 36.5) result += " (Low temperature)";
+                else if (temperature <= 37.5) result += " (Normal temperature)";
+                else result += " (Fever)";
+                
+                if (pulse < 60) result += " (Low pulse rate)";
+                else if (pulse > 100) result += " (High pulse rate)";
+                else result += " (Normal pulse rate)";
+                document.getElementById('healthStatsResult').innerText = result;
+            } else {
+                document.getElementById('healthStatsResult').innerText = "Please enter valid temperature and pulse rate.";
+            }
+        }
+
+        // Doctor Search
+        function searchDoctor() {
+            let specialty = document.getElementById('doctorSearchInput').value;
+            if (specialty) {
+                document.getElementById('doctorResult').innerText = `Searching for doctors specializing in ${specialty}...`;
+            } else {
+                document.getElementById('doctorResult').innerText = "Please enter a doctor specialty.";
+            }
+        }
+
+        // Doctor Consultation Fees & Advice
+        function doctorAdvice() {
+            let doctorName = document.getElementById('doctorAdviceInput').value;
+            if (doctorName) {
+                document.getElementById('doctorAdviceResult').innerText = `Fetching consultation fees and advice for Dr. ${doctorName}...`;
+            } else {
+                document.getElementById('doctorAdviceResult').innerText = "Please enter a doctor's name.";
+            }
+        }
+
+        // FAQ Search
+        function searchFAQ() {
+            let faqSearch = document.getElementById('faqSearch').value;
+            if (faqSearch) {
+                document.getElementById('faqResult').innerText = `Searching FAQ for: ${faqSearch}...`;
+            } else {
+                document.getElementById('faqResult').innerText = "Please enter a search query.";
+            }
+        }
+    </script>
+</body>
+</html>
